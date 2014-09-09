@@ -1,0 +1,67 @@
+
+
+** top-level search **
+leave all fields blank, except for 'days of the week'
+MWF, MTWTF, TuTh, (or, would individual weekdays get us full coverage?)
+    yup... if I search for 'M', then 'MW' classes are included in this search.
+
+
+URL hacking
+classes meeting on Monday in Fall:
+http://osoc.berkeley.edu/OSOC/osoc?p_term=FL&p_day=M
+
+next page (100 per page):
+http://osoc.berkeley.edu/OSOC/osoc?p_term=FL&p_day=M&p_start_row=101
+
+printable version (all in one page; possibly easier to parse):
+http://osoc.berkeley.edu/OSOC/osoc?p_term=FL&p_day=M&p_print_flag=Y
+
+
+on the page... these fields correspond to URL elements.
+<form action="/OSOC/osoc" method="POST" style="display:inline;"> 
+    ...
+    <input type="hidden" name="p_classif" value="-- Choose a Course Classification --">
+    <input type="hidden" name="p_day" value="M"> #Monday -- we set this in the URL
+    <INPUT TYPE="hidden" NAME="p_start_row" VALUE="101">
+    <INPUT TYPE="hidden" NAME="p_total_rows" VALUE="1012"> #useful!
+    ...
+</form>
+
+
+** low-level per-class data **
+
+example class in printable version (p_print_flag=Y):
+ (slightly tweaked to be concise)
+Control Number, Course Number, Section, Day-Hour, Room,        Course Title,                                  Units, Instructor, Exam Group, Restrictions
+00671           P  159         002 LEC  M 1-2P    650 BARROWS  Special Topics in African American Literature  1      NANDA, A    12          CURRENTLY FULL
+
+same class in page source of printable version:
+<tr>
+    #each of these is in a <td></td>:
+    <font face="Helvetica, Arial, sans-serif" size="-4">00671&nbsp;&nbsp;</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">P&nbsp;&nbsp;159</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">002&nbsp;LEC&nbsp;&nbsp;</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">M 1-2P&nbsp;&nbsp;</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4"> 650 BARROWS&nbsp;&nbsp;</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">Special Topics in African American Literature</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">1</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">NANDA, A</font>
+    <font face="Helvetica, Arial, sans-serif" size="-4">CURRENTLY FULL</font>
+</tr>
+
+just one entry in the non-printable version:
+<TR>
+    <TD ALIGN=RIGHT VALIGN=TOP NOWRAP>
+        <FONT FACE="Helvetica, Arial, sans-serif" SIZE="1">
+            <B>Location:&#160;</B>
+        </FONT>
+    </TD>
+    <TD NOWRAP>
+        <TT>M 1-2P, 650 BARROWS</TT>
+    </TD>
+</TR>
+
+
+design choice ideas:
+- only use LEC classes
+
