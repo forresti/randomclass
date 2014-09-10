@@ -1,5 +1,10 @@
 
 
+** hmm, instead of scraping the course catalog **
+use the Berkeley course API?
+https://developer.berkeley.edu/apidocs/courses
+
+
 ** top-level search **
 leave all fields blank, except for 'days of the week'
 MWF, MTWTF, TuTh, (or, would individual weekdays get us full coverage?)
@@ -61,7 +66,23 @@ just one entry in the non-printable version:
     </TD>
 </TR>
 
+** course description **
+untangling "(catalog description)" link on list of classes (non printable version):
+
+<B>GROUP IN BUDDHIST STUDIES C50 S 101 DIS </B>
+<FORM ACTION="/catalog/gcc_search_sends_request" METHOD="POST" target="_blank"><INPUT TYPE="hidden" NAME="p_dept_cd" VALUE="BUDDSTD"><INPUT TYPE="hidden" NAME="p_title" VALUE=""><INPUT TYPE="hidden" NAME="p_number" VALUE="C50"><TR><TD ALIGN=RIGHT VALIGN=TOP NOWRAP>
+
+here's the course description URL, unpacked from the POST request above:
+http://osoc.berkeley.edu/catalog/gcc_search_sends_request?p_dept_cd=BUDDSTD&p_number=C50
+
+    contains this description:
+This introduction to the study of Buddhism will consider materials drawn from various Buddhist traditions of Asia, from ancient times down to the present day. However, the course is not intended to be a comprehensive or systematic survey; rather than aiming at breadth, the course is designed around key themes such as ritual, image veneration, mysticism, meditation, and death. The overarching emphasis throughout the course will be on the hermeneutic difficulties attendant upon the study of religion in general, and Buddhism in particular. Also listed as South and Southeast Asian Studies C52 and East Asian Languages and Cultures C50.
+
+
 
 design choice ideas:
 - only use LEC classes
+
+
+
 
