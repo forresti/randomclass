@@ -2,14 +2,25 @@ import json
 from flask import Flask
 app = Flask(__name__)
 from crossdomain import crossdomain
+import random
 
 def getSampleClass():
-    sampleClass = dict()
-    sampleClass['courseTitle'] = 'Tibetan Buddhism'
-    sampleClass['meetingDay'] = 'TuTh' #flattened from inside of 'sectionMeetings'
-    sampleClass['startTime'] = '1230'
-    sampleClass['building'] = 'Dwinelle Hall'
-    sampleClass['room'] = '215'
+    toyClassID = random.choice([0,1])
+    if toyClassID == 0:
+        sampleClass = dict()
+        sampleClass['courseTitle'] = 'Tibetan Buddhism'
+        sampleClass['meetingDay'] = 'TuTh' #flattened from inside of 'sectionMeetings'
+        sampleClass['startTime'] = '1230'
+        sampleClass['building'] = 'Dwinelle Hall'
+        sampleClass['room'] = '215'
+
+    else:
+        sampleClass = dict()
+        sampleClass['courseTitle'] = 'Special Topics in African History'
+        sampleClass['meetingDay'] = 'TuTh' #flattened from inside of 'sectionMeetings'
+        sampleClass['startTime'] = '1400' #clarify time of day stuff?
+        sampleClass['building'] = 'Dwinelle Hall'
+        sampleClass['room'] = '210'
     return sampleClass
 
 @app.route("/getRandomClass")
