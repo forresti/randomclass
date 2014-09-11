@@ -1,0 +1,35 @@
+<html>
+<title>RandomClass.org -- free your mind</title>
+
+<body>
+<a href="#" onclick="getRandomClass_func(); return false;">get random class</a>
+
+<!-- we populate 'yourClass' with a random class -->
+<div id="yourClass"></div>
+
+</body>
+</html>
+
+<script>
+//thx: http://stackoverflow.com/questions/247483/http-get-request-in-javascript 
+function httpGet(theUrl){
+    var xmlHttp = null;
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function getRandomClass_func(){
+    //arbitrary url
+    //url="http://r8.cs.berkeley.edu/~forrest/randomclass/note.xml"
+    url="http://r8.cs.berkeley.edu:5000/getRandomClass"
+    responseText=httpGet(url);
+
+    var yourClass = document.getElementById('yourClass');
+    yourClass.innerHTML=responseText; 
+}
+
+</script>
+
+

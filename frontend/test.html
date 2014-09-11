@@ -5,22 +5,20 @@ Easy: <a href="#" onclick="toyRequest_simple(); return false;">Do Request -- jus
 <br>
 Medium: <a href="#" onclick="toyRequest(); return false;">Do Request -- call HttpRequest </a>
 <br>
-Hard: <a href="#" onclick="getRandomClass(); return false;">get random class</a>
+Hard: <a href="#" onclick="getRandomClass_func(); return false;">get random class</a>
 
 <script>
 //works when called from link.
 function toyRequest_simple(){
-    alert('hello');
-    
-
+    //alert('hello');
     var h = document.createElement("h4");
     var t = document.createTextNode("hello from toyRequest_simple()");
     h.appendChild(t);
     document.body.appendChild(h);
 }
-    
-function httpGet(theUrl)
-{
+
+//thx: http://stackoverflow.com/questions/247483/http-get-request-in-javascript 
+function httpGet(theUrl){
     var xmlHttp = null;
     xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false );
@@ -28,7 +26,6 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
-//doesn't work, argh. 
 function toyRequest(){
     //arbitrary url
     url="http://r8.cs.berkeley.edu/~forrest/randomclass/note.xml"
@@ -46,6 +43,18 @@ function toyRequest(){
     document.body.appendChild(h)
 }    
 
+function getRandomClass_func(){
+    //arbitrary url
+    //url="http://r8.cs.berkeley.edu/~forrest/randomclass/note.xml"
+    url="http://r8.cs.berkeley.edu:5000/getRandomClass"
+    responseText=httpGet(url);
+
+    //display what we pulled from httpGet'd file:
+    var h = document.createElement("div");
+    var t = document.createTextNode(responseText);
+    h.appendChild(t);
+    document.body.appendChild(h)
+}
 
 </script>
 
