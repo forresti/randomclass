@@ -42,6 +42,7 @@ def primary_lec_only(classes):
 
     #prune 134k classes down to 102k (mainly lectures now)
     classes_pri3 = [c for c in classes_pri2 if c['sections']['sectionType']=='PRIMARY']
+    # it looks like sectionType:'SECONDARY' typically corresponds with sectionFormat:DIS (discussion)
 
     #TODO: perhaps tweak the original Berkeley API query to request Fall.
     classes_fall = [c for c in classes_pri3 if 'Fall' in c['classUID']]
@@ -56,13 +57,37 @@ possible blacklist
 
 courseTitle:
 Special Study, Special Topics, Independent Study, (Research?), Directed Study
+Group Studies, Group Research
 
 sections: sectionMeetings: building: 'NO FACILITY'
 '''
 
+#prune away classes w/ blacklist words (e.g. Independent Study)
+def blacklist_classes(classes):
+
+    #before pruning: 25k classes, if input is from primary_lec_only()
+
+    #21k classes
+    classes2 = [c for c in classes if 'sectionMeetings' in c['sections'].keys() and type(c['sections']['sectionMeetings']) == type(dict())]
+    
+    #21k classes
+    classes3 = [c for c in classes2 if 'building' in c['sections']['sectionMeetings'].keys()]
+
+    #9k classes
+    classes4 = [c for c in classes3 if c['sections']['sectionMeetings']['building'] != 'NO FACILITY']
+
+    #9k classes (~25 fewer classes than classes4)
+    classes5 = [c for c in classes4 if 'courseTitle' in c.keys()]
+
+    #7.6k classes
+    classes6 = [c for c in classes5 if 'Independent' not in c['courseTitle'] and 'Special' not in c['courseTitle'] and 'Directed' not in c['courseTitle']]
+
+    return classes6
+
 def parse_classes():
     classes = loadAllClasses()
     classes = primary_lec_only(classes)    
+    classes = blacklist_classes(classes)
     return classes
 
 classes = parse_classes()
