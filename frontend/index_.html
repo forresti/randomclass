@@ -21,14 +21,22 @@ function httpGet(theUrl){
 }
 
 function getRandomClass_func(){
-    //arbitrary url
+    //ask backend for a random class.
     //url="http://r8.cs.berkeley.edu/~forrest/randomclass/note.xml"
     //url="http://r8.cs.berkeley.edu:5000/getRandomClass"
     url="http://192.241.214.73:5000/getRandomClass"
     responseText=httpGet(url);
 
+    //translate the random class into HTML
+    var obj = JSON.parse(responseText);
+    var res='<div id="courseUID">' + obj.courseUID + '</div>';
+    res = res + '<div id="courseTitle">' + obj.courseTitle + '</div>';
+    res = res + '<div id="meetingTime">' + obj.sections.sectionMeetings.meetingDay + ' ' + obj.sections.sectionMeetings.startTime + '-' + obj.sections.sectionMeetings.endTime + '</div>';
+    res = res + '<div id="location">' + obj.sections.sectionMeetings.building + ' ' + obj.sections.sectionMeetings.room + '</div>';
+
     var yourClass = document.getElementById('yourClass');
-    yourClass.innerHTML=responseText; 
+    //yourClass.innerHTML=responseText; 
+    yourClass.innerHTML=res;
 }
 
 </script>
