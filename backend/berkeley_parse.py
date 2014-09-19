@@ -91,7 +91,9 @@ def parse_classes():
     return classes
 
 classes = parse_classes()
-embed()
 #get random class:
 #random.choice(classes)
+
+with open('berkeley_fa14_pruned.json', 'w') as outfile:
+    json.dump(classes, outfile)
 
